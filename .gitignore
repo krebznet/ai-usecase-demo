@@ -1,0 +1,50 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python environment/packaging
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Local Ollama models/cache (optional — if you don’t want large model blobs in Git)
+~/.ollama/
+
+# IDE/project files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Test/cache
+.pytest_cache/
+.coverage
+htmlcov/

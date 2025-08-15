@@ -1,0 +1,17 @@
+
+requirements:
+  termination_notice_days:
+    text: "Either party may terminate with at least 30 days' written notice."
+    expected_min_days: 30
+    type: "numeric_days"
+    risk_if_below: "medium"
+  governing_law:
+    text: "Agreement governed by the laws of Delaware."
+    expected_value: "delaware"
+    type: "keyword"
+    risk_if_mismatch: "low"
+  baa_required:
+    text: "Handling Protected Health Information (PHI) requires a Business Associate Agreement (BAA)."
+    required_keywords: ["business associate agreement", "baa", "phi"]
+    type: "must_include_any"
+    risk_if_missing: "high"
