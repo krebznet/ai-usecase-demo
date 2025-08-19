@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+    "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+    
+    <!-- Form Bean Definitions -->
+    <form-beans>
+        <form-bean name="applicantForm" type="com.trucklease.beans.ApplicantForm"/>
+        <form-bean name="vehiclePreferenceForm" type="com.trucklease.beans.VehiclePreferenceForm"/>
+        <form-bean name="financialInfoForm" type="com.trucklease.beans.FinancialInfoForm"/>
+        <form-bean name="backgroundCheckForm" type="com.trucklease.beans.BackgroundCheckForm"/>
+        <form-bean name="leaseAgreementForm" type="com.trucklease.beans.LeaseAgreementForm"/>
+    </form-beans>
+    
+    <!-- Action Mappings -->
+    <action-mappings>
+        
+        <!-- Welcome/Landing Page -->
+        <action path="/welcome" 
+                type="com.trucklease.actions.WelcomeAction"
+                name="applicantForm"
+                scope="session"
+                validate="false">
+            <forward name="success" path="/jsp/welcome.jsp"/>
+        </action>
+        
+        <!-- Step 1: Applicant Information -->
+        <action path="/applicantInfo" 
+                type="com.trucklease.actions.ApplicantInfoAction"
+                name="applicantForm"
+                scope="session"
+                validate="true"
+                input="/jsp/applicant-info.jsp">
+            <forward name="success" path="/vehiclePreference.do"/>
+            <forward name="failure" path="/jsp/applicant-info.jsp"/>
+        </action>
+        
+        <!-- Step 2: Vehicle Preferences -->
+        <action path="/vehiclePreference" 
+                type="com.trucklease.actions.VehiclePreferenceAction"
+                name="vehiclePreferenceForm"
+                scope="session"
+                validate="true"
+                input="/jsp/vehicle-preference.jsp">
+            <forward name="success" path="/financialInfo.do"/>
+            <forward name="back" path="/jsp/applicant-info.jsp"/>
+        </action>
+        
+        <!-- Step 3: Financial Information -->
+        <action path="/financialInfo" 
+                type="com.trucklease.actions.FinancialInfoAction"
+                name="financialInfoForm"
+                scope="session"
+                validate="true"
+                input="/jsp/financial-info.jsp">
+            <forward name="success" path="/backgroundCheck.do"/>
+            <forward name="back" path="/jsp/vehicle-preference.jsp"/>
+        </action>
+        
+        <!-- Step 4: Background Check Authorization -->
+        <action path="/backgroundCheck" 
+                type="com.trucklease.actions.BackgroundCheckAction"
+                name="backgroundCheckForm"
+                scope="session"
+                validate="true"
+                input="/jsp/background-check.jsp">
+            <forward name="success" path="/leaseReview.do"/>
+            <forward name="back" path="/jsp/financial-info.jsp"/>
+        </action>
+        
+        <!-- Step 5: Lease Agreement Review -->
+        <action path="/leaseReview" 
+                type="com.trucklease.actions.LeaseReviewAction"
+                name="leaseAgreementForm"
+                scope="session"
+                validate="false">
+            <forward name="success" path="/jsp/lease-review.jsp"/>
+            <forward name="back" path="/jsp/background-check.jsp"/>
+        </action>
+        
+        <!-- Final Submission -->
+        <action path="/submitApplication" 
+                type="com.trucklease.actions.SubmitApplicationAction"
+                scope="session"
+                validate="false">
+            <forward name="success" path="/jsp/confirmation.jsp"/>
+            <forward name="failure" path="/jsp/error.jsp"/>
+        </action>
+        
+    </action-mappings>
+    
+    <!-- Global Forwards -->
+    <global-forwards>
+        <forward name="home" path="/welcome.do"/>
+        <forward name="error" path="/jsp/error.jsp"/>
+    </global-forwards>
+    
+    <!-- Message Resources -->
+    <message-resources parameter="ApplicationResources"/>
+    
+</struts-config>

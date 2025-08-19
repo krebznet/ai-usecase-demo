@@ -1,0 +1,308 @@
+{
+  "react_components": [
+    {
+      "name": "VehiclePreference",
+      "type": "form",
+      "source_file": "src/main/webapp/jsp/vehicle-preference.jsp",
+      "title": "Vehicle Preferences - Truck Lease Application",
+      "state_fields": [
+        "specialRequirements",
+        "preferredMake",
+        "maxModelYear",
+        "trailerLength",
+        "numberOfTrailers",
+        "intendedUse",
+        "milesPerYear",
+        "specialRequirements",
+        "truckType",
+        "truckType",
+        "truckType",
+        "trailerType",
+        "trailerType",
+        "trailerType",
+        "trailerType"
+      ],
+      "validation_required": true,
+      "props": [
+        "onSubmit",
+        "errors"
+      ],
+      "suggested_libraries": [
+        "react-hook-form",
+        "react-select"
+      ]
+    },
+    {
+      "name": "Welcome",
+      "type": "form",
+      "source_file": "src/main/webapp/jsp/welcome.jsp",
+      "title": "Welcome - Truck Lease Application",
+      "state_fields": [],
+      "validation_required": true,
+      "props": [
+        "onSubmit",
+        "errors"
+      ],
+      "suggested_libraries": []
+    },
+    {
+      "name": "ApplicantInfo",
+      "type": "form",
+      "source_file": "src/main/webapp/jsp/applicant-info.jsp",
+      "title": "Personal Information - Truck Lease Application",
+      "state_fields": [
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "ssn",
+        "dateOfBirth",
+        "address",
+        "city",
+        "zipCode",
+        "licenseNumber",
+        "state",
+        "licenseState",
+        "hasCDL"
+      ],
+      "validation_required": true,
+      "props": [
+        "onSubmit",
+        "errors"
+      ],
+      "suggested_libraries": [
+        "react-hook-form",
+        "react-select"
+      ]
+    }
+  ],
+  "api_endpoints": [
+    {
+      "path": "/welcome",
+      "method": "GET",
+      "source_action": "com.trucklease.actions.WelcomeAction",
+      "form_bean": "applicantForm",
+      "validation_required": false,
+      "responses": [
+        "success"
+      ],
+      "suggested_middleware": [
+        "express-session",
+        "cors"
+      ]
+    },
+    {
+      "path": "/applicantInfo",
+      "method": "POST",
+      "source_action": "com.trucklease.actions.ApplicantInfoAction",
+      "form_bean": "applicantForm",
+      "validation_required": true,
+      "responses": [
+        "success",
+        "failure"
+      ],
+      "suggested_middleware": [
+        "express-validator",
+        "express-session",
+        "cors"
+      ]
+    },
+    {
+      "path": "/vehiclePreference",
+      "method": "POST",
+      "source_action": "com.trucklease.actions.VehiclePreferenceAction",
+      "form_bean": "vehiclePreferenceForm",
+      "validation_required": true,
+      "responses": [
+        "success",
+        "back"
+      ],
+      "suggested_middleware": [
+        "express-validator",
+        "express-session",
+        "cors"
+      ]
+    },
+    {
+      "path": "/financialInfo",
+      "method": "POST",
+      "source_action": "com.trucklease.actions.FinancialInfoAction",
+      "form_bean": "financialInfoForm",
+      "validation_required": true,
+      "responses": [
+        "success",
+        "back"
+      ],
+      "suggested_middleware": [
+        "express-validator",
+        "express-session",
+        "cors"
+      ]
+    },
+    {
+      "path": "/backgroundCheck",
+      "method": "POST",
+      "source_action": "com.trucklease.actions.BackgroundCheckAction",
+      "form_bean": "backgroundCheckForm",
+      "validation_required": true,
+      "responses": [
+        "success",
+        "back"
+      ],
+      "suggested_middleware": [
+        "express-validator",
+        "express-session",
+        "cors"
+      ]
+    },
+    {
+      "path": "/leaseReview",
+      "method": "GET",
+      "source_action": "com.trucklease.actions.LeaseReviewAction",
+      "form_bean": "leaseAgreementForm",
+      "validation_required": false,
+      "responses": [
+        "success",
+        "back"
+      ],
+      "suggested_middleware": [
+        "express-session",
+        "cors"
+      ]
+    },
+    {
+      "path": "/submitApplication",
+      "method": "GET",
+      "source_action": "com.trucklease.actions.SubmitApplicationAction",
+      "form_bean": null,
+      "validation_required": false,
+      "responses": [
+        "success",
+        "failure"
+      ],
+      "suggested_middleware": [
+        "express-session",
+        "cors"
+      ]
+    }
+  ],
+  "state_management": {
+    "recommended_solution": "Redux Toolkit",
+    "session_management": "JWT tokens",
+    "form_state": "React Hook Form",
+    "global_state_entities": [
+      "applicantForm",
+      "vehiclePreferenceForm",
+      "financialInfoForm",
+      "backgroundCheckForm",
+      "leaseAgreementForm"
+    ]
+  },
+  "routing": [
+    {
+      "path": "/welcome",
+      "component": "Welcome",
+      "protected": false,
+      "redirect_rules": {
+        "success": "/jsp/welcome.jsp"
+      }
+    },
+    {
+      "path": "/applicantInfo",
+      "component": "Applicantinfo",
+      "protected": true,
+      "redirect_rules": {
+        "success": "/vehiclePreference.do",
+        "failure": "/jsp/applicant-info.jsp"
+      }
+    },
+    {
+      "path": "/vehiclePreference",
+      "component": "Vehiclepreference",
+      "protected": true,
+      "redirect_rules": {
+        "success": "/financialInfo.do",
+        "back": "/jsp/applicant-info.jsp"
+      }
+    },
+    {
+      "path": "/financialInfo",
+      "component": "Financialinfo",
+      "protected": true,
+      "redirect_rules": {
+        "success": "/backgroundCheck.do",
+        "back": "/jsp/vehicle-preference.jsp"
+      }
+    },
+    {
+      "path": "/backgroundCheck",
+      "component": "Backgroundcheck",
+      "protected": true,
+      "redirect_rules": {
+        "success": "/leaseReview.do",
+        "back": "/jsp/financial-info.jsp"
+      }
+    },
+    {
+      "path": "/leaseReview",
+      "component": "Leasereview",
+      "protected": false,
+      "redirect_rules": {
+        "success": "/jsp/lease-review.jsp",
+        "back": "/jsp/background-check.jsp"
+      }
+    },
+    {
+      "path": "/submitApplication",
+      "component": "Submitapplication",
+      "protected": false,
+      "redirect_rules": {
+        "success": "/jsp/confirmation.jsp",
+        "failure": "/jsp/error.jsp"
+      }
+    }
+  ],
+  "validation_rules": {
+    "applicantForm": {
+      "fields": [
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "ssn",
+        "dateOfBirth",
+        "address",
+        "city",
+        "state",
+        "zipCode",
+        "licenseNumber",
+        "licenseState",
+        "hasCDL"
+      ],
+      "rules": [
+        "server_side_validation",
+        "error_handling",
+        "regex_validation"
+      ],
+      "suggested_library": "Yup"
+    },
+    "vehiclePreferenceForm": {
+      "fields": [
+        "truckType",
+        "preferredMake",
+        "maxModelYear",
+        "trailerType",
+        "trailerLength",
+        "numberOfTrailers",
+        "intendedUse",
+        "milesPerYear",
+        "specialRequirements"
+      ],
+      "rules": [
+        "server_side_validation",
+        "error_handling"
+      ],
+      "suggested_library": "Yup"
+    }
+  }
+}

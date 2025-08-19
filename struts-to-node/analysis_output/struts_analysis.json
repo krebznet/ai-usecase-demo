@@ -1,0 +1,328 @@
+{
+  "action_mappings": [
+    {
+      "path": "/welcome",
+      "type": "com.trucklease.actions.WelcomeAction",
+      "name": "applicantForm",
+      "scope": "session",
+      "validate": false,
+      "input": null,
+      "forwards": {
+        "success": "/jsp/welcome.jsp"
+      }
+    },
+    {
+      "path": "/applicantInfo",
+      "type": "com.trucklease.actions.ApplicantInfoAction",
+      "name": "applicantForm",
+      "scope": "session",
+      "validate": true,
+      "input": "/jsp/applicant-info.jsp",
+      "forwards": {
+        "success": "/vehiclePreference.do",
+        "failure": "/jsp/applicant-info.jsp"
+      }
+    },
+    {
+      "path": "/vehiclePreference",
+      "type": "com.trucklease.actions.VehiclePreferenceAction",
+      "name": "vehiclePreferenceForm",
+      "scope": "session",
+      "validate": true,
+      "input": "/jsp/vehicle-preference.jsp",
+      "forwards": {
+        "success": "/financialInfo.do",
+        "back": "/jsp/applicant-info.jsp"
+      }
+    },
+    {
+      "path": "/financialInfo",
+      "type": "com.trucklease.actions.FinancialInfoAction",
+      "name": "financialInfoForm",
+      "scope": "session",
+      "validate": true,
+      "input": "/jsp/financial-info.jsp",
+      "forwards": {
+        "success": "/backgroundCheck.do",
+        "back": "/jsp/vehicle-preference.jsp"
+      }
+    },
+    {
+      "path": "/backgroundCheck",
+      "type": "com.trucklease.actions.BackgroundCheckAction",
+      "name": "backgroundCheckForm",
+      "scope": "session",
+      "validate": true,
+      "input": "/jsp/background-check.jsp",
+      "forwards": {
+        "success": "/leaseReview.do",
+        "back": "/jsp/financial-info.jsp"
+      }
+    },
+    {
+      "path": "/leaseReview",
+      "type": "com.trucklease.actions.LeaseReviewAction",
+      "name": "leaseAgreementForm",
+      "scope": "session",
+      "validate": false,
+      "input": null,
+      "forwards": {
+        "success": "/jsp/lease-review.jsp",
+        "back": "/jsp/background-check.jsp"
+      }
+    },
+    {
+      "path": "/submitApplication",
+      "type": "com.trucklease.actions.SubmitApplicationAction",
+      "name": null,
+      "scope": "session",
+      "validate": false,
+      "input": null,
+      "forwards": {
+        "success": "/jsp/confirmation.jsp",
+        "failure": "/jsp/error.jsp"
+      }
+    }
+  ],
+  "form_beans": [
+    {
+      "name": "applicantForm",
+      "type": "com.trucklease.beans.ApplicantForm",
+      "properties": [
+        "firstName",
+        "lastName",
+        "email",
+        "phone",
+        "ssn",
+        "dateOfBirth",
+        "address",
+        "city",
+        "state",
+        "zipCode",
+        "licenseNumber",
+        "licenseState",
+        "hasCDL"
+      ],
+      "validations": [
+        "server_side_validation",
+        "error_handling",
+        "regex_validation"
+      ]
+    },
+    {
+      "name": "vehiclePreferenceForm",
+      "type": "com.trucklease.beans.VehiclePreferenceForm",
+      "properties": [
+        "truckType",
+        "preferredMake",
+        "maxModelYear",
+        "trailerType",
+        "trailerLength",
+        "numberOfTrailers",
+        "intendedUse",
+        "milesPerYear",
+        "specialRequirements"
+      ],
+      "validations": [
+        "server_side_validation",
+        "error_handling"
+      ]
+    },
+    {
+      "name": "financialInfoForm",
+      "type": "com.trucklease.beans.FinancialInfoForm",
+      "properties": [],
+      "validations": []
+    },
+    {
+      "name": "backgroundCheckForm",
+      "type": "com.trucklease.beans.BackgroundCheckForm",
+      "properties": [],
+      "validations": []
+    },
+    {
+      "name": "leaseAgreementForm",
+      "type": "com.trucklease.beans.LeaseAgreementForm",
+      "properties": [],
+      "validations": []
+    }
+  ],
+  "jsp_pages": [
+    {
+      "path": "src/main/webapp/jsp/vehicle-preference.jsp",
+      "title": "Vehicle Preferences - Truck Lease Application",
+      "forms": [
+        "/vehiclePreference"
+      ],
+      "inputs": [
+        {
+          "property": "specialRequirements",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "preferredMake",
+          "type": "select",
+          "cssClass": ""
+        },
+        {
+          "property": "maxModelYear",
+          "type": "select",
+          "cssClass": ""
+        },
+        {
+          "property": "trailerLength",
+          "type": "select",
+          "cssClass": ""
+        },
+        {
+          "property": "numberOfTrailers",
+          "type": "select",
+          "cssClass": ""
+        },
+        {
+          "property": "intendedUse",
+          "type": "select",
+          "cssClass": ""
+        },
+        {
+          "property": "milesPerYear",
+          "type": "select",
+          "cssClass": ""
+        },
+        {
+          "property": "specialRequirements",
+          "type": "textarea",
+          "cssClass": ""
+        },
+        {
+          "property": "truckType",
+          "type": "radio",
+          "cssClass": ""
+        },
+        {
+          "property": "truckType",
+          "type": "radio",
+          "cssClass": ""
+        },
+        {
+          "property": "truckType",
+          "type": "radio",
+          "cssClass": ""
+        },
+        {
+          "property": "trailerType",
+          "type": "radio",
+          "cssClass": ""
+        },
+        {
+          "property": "trailerType",
+          "type": "radio",
+          "cssClass": ""
+        },
+        {
+          "property": "trailerType",
+          "type": "radio",
+          "cssClass": ""
+        },
+        {
+          "property": "trailerType",
+          "type": "radio",
+          "cssClass": ""
+        }
+      ],
+      "navigation": [
+        "back"
+      ],
+      "business_logic": []
+    },
+    {
+      "path": "src/main/webapp/jsp/welcome.jsp",
+      "title": "Welcome - Truck Lease Application",
+      "forms": [
+        "/applicantInfo"
+      ],
+      "inputs": [],
+      "navigation": [],
+      "business_logic": []
+    },
+    {
+      "path": "src/main/webapp/jsp/applicant-info.jsp",
+      "title": "Personal Information - Truck Lease Application",
+      "forms": [
+        "/applicantInfo"
+      ],
+      "inputs": [
+        {
+          "property": "firstName",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "lastName",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "email",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "phone",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "ssn",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "dateOfBirth",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "address",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "city",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "zipCode",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "licenseNumber",
+          "type": "text",
+          "cssClass": ""
+        },
+        {
+          "property": "state",
+          "type": "select",
+          "cssClass": ""
+        },
+        {
+          "property": "licenseState",
+          "type": "select",
+          "cssClass": ""
+        },
+        {
+          "property": "hasCDL",
+          "type": "checkbox",
+          "cssClass": ""
+        }
+      ],
+      "navigation": [
+        "/welcome"
+      ],
+      "business_logic": []
+    }
+  ]
+}
